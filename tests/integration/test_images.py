@@ -34,9 +34,7 @@ def test_colour_matcher_url_invalid_url(client):
     invalid_url = "https://www.harukimurakami.com/"
     response = client.post(
         "/v1/images/match-colour",
-        json={
-            "url": invalid_url
-        },
+        json={"url": invalid_url},
     )
     assert response.status_code == 422
-    # assert response.json() == {}
+    assert response.json() == {"detail": "URL contains no valid png image."}
