@@ -1,9 +1,8 @@
+from core import models
+from core.database import SessionLocal, engine
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
-
-from core import models
-from core.database import SessionLocal, engine
 
 from .v1 import v1_router
 

@@ -109,9 +109,7 @@ def match_pixel_with_colour(pixel: Tuple[int], palette: List[Colour]) -> str:
     return closest_colour
 
 
-def check_matched_colour_dominant(
-    colour_count: dict, pixel_count: int
-) -> str:
+def check_matched_colour_dominant(colour_count: dict, pixel_count: int) -> str:
     """
     Check the most frequent colour match exceeds the minimum threshold to be
     considered the matching colour.

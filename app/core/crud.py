@@ -1,8 +1,7 @@
 from typing import List, Union
 
-from sqlalchemy.orm import Session
-
 from core import models
+from sqlalchemy.orm import Session
 
 
 def load_colours(db: Session) -> List[models.Colour]:
@@ -21,7 +20,9 @@ def get_image_by_url(db: Session, url: str) -> Union[models.Image, None]:
     return db.query(models.Image).filter(models.Image.url == url).one_or_none()
 
 
-def create_image_record(db: Session, url: str, colour_id: int) -> Union[models.Image, None]:
+def create_image_record(
+    db: Session, url: str, colour_id: int
+) -> Union[models.Image, None]:
     db_image = models.Image(url=url, matched_colour_id=colour_id)
     db.add(db_image)
     db.commit()

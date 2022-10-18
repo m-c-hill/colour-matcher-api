@@ -1,8 +1,7 @@
 import pytest
-from fastapi.testclient import TestClient
-
 from api import create_app
 from core.schemas import Colour
+from fastapi.testclient import TestClient
 
 
 @pytest.fixture(scope="session")

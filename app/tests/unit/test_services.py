@@ -2,10 +2,9 @@ from typing import List, Tuple
 from urllib.request import urlopen
 
 import pytest
-from PIL import Image
-
 from core import services
 from core.models import Colour
+from PIL import Image
 
 # =============
 #  Fixtures
