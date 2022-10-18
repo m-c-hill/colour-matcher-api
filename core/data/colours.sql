@@ -1,4 +1,4 @@
-INSERT INTO colour (name, colour_r, colour_g, colour_b) VALUES
+INSERT INTO colour (name, r, g, b) VALUES
     ('air_force_blue_raf',93,138,168),
     ('air_force_blue_usaf',0,48,143),
     ('air_superiority_blue',114,160,193),

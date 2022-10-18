@@ -1,10 +1,10 @@
 from typing import Tuple
-import pytest
-from PIL import Image
 from urllib.request import urlopen
 
-from core import services
+import pytest
+from PIL import Image
 
+from core import services
 
 # =============
 #  Fixtures
@@ -26,12 +26,16 @@ def colour_salmon() -> Tuple[int]:
 # =============
 
 
-def test_match_colour(image_url_valid):
-    result = services.match_colour(image_url_valid)
+def test_match_image_with_colour(image_url_valid):
+    result = services.match_image_with_colour(image_url_valid)
 
     assert result["url"] == image_url_valid
     assert result["matched_colour"] == "teal"
     assert result["diff"] == pytest.approx(120.4, 0.1)
+
+
+def test_match_pixel_with_colour():
+    pass
 
 
 def test_is_url_image_returns_true(image_url_valid):
@@ -59,3 +63,9 @@ def test_compress_image():
 def test_get_redmean_colour_difference(colour_crimson, colour_salmon):
     diff = services.get_redmean_colour_difference(colour_crimson, colour_salmon)
     assert diff == pytest.approx(235.25, 0.01)
+
+
+def test_load_image():
+    url = "https://media.pitchfork.com/photos/5929a0fb13d197565213850b/1:1/w_600/7e252f9a.jpg"
+    services.load_image(url)
+    # Mock to reduce compression to 10?

@@ -11,9 +11,9 @@ class Colour(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True)
-    colour_r = Column(Integer)
-    colour_g = Column(Integer)
-    colour_b = Column(Integer)
+    r = Column(Integer)
+    g = Column(Integer)
+    b = Column(Integer)
     images = relationship("Image")
 
 
@@ -22,8 +22,5 @@ class Image(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     url = Column(String, unique=True)
-    colour_r = Column(Integer)
-    colour_g = Column(Integer)
-    colour_b = Column(Integer)
     closest_colour_id = Column(Integer, ForeignKey("colour.id"))
-    deviation = Column(Float)
+    avg_deviation = Column(Float)
