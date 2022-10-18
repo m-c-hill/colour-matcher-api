@@ -12,12 +12,12 @@ def client() -> TestClient:
 
 
 @pytest.fixture(scope="session")
-def image_url_valid() -> str:
+def image_url_valid_teal() -> str:
     return (
         "https://pwintyimages.blob.core.windows.net/samples/stars/test-sample-teal.png"
     )
 
 
 @pytest.fixture(scope="session")
-def image_url_invalid() -> str:
+def invalid_url_no_image_content() -> str:
     return "https://www.harukimurakami.com/"

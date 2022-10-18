@@ -8,7 +8,7 @@ from PIL import Image
 
 from .schemas import Colour
 
-COMPRESSION_SIZE = 100
+COMPRESSION_SIZE = 40
 
 palette = [
     {"name": "salmon", "rgb": (250, 128, 114)},
@@ -32,7 +32,6 @@ def load_image(url: str) -> np.array:
 
 
 def match_image_with_colour(url: str, palette: List[Colour]) -> dict:
-    
     pixel_cache = {}
     colour_count = {}
 
@@ -40,29 +39,30 @@ def match_image_with_colour(url: str, palette: List[Colour]) -> dict:
 
     for row in image_array:
         for pixel in row:
+            # TODO: refactor to pixel function
             rgb_pixel = tuple(pixel)
 
             if rgb_pixel in pixel_cache:
-                colour_name = pixel_cache[rgb_pixel]["matched_colour"]
-                colour_count[colour_name] += 1
+                matched_colour = pixel_cache[rgb_pixel]
+                colour_count[matched_colour] += 1
                 continue
 
             min_diff = math.inf
             for colour in palette:
                 rgb_palette = (colour.r, colour.b, colour.g)
                 diff = get_redmean_colour_difference(rgb_pixel, rgb_palette)
-                min_diff = min(min_diff, diff)
-                pixel_cache[rgb_pixel] = {
-                    "matched_colour": colour.name,
-                    "diff": diff,
-                }
-                colour_count[colour.name] = 1
+                if diff < min_diff:
+                    min_diff = diff
+                    closest_colour = colour.name
 
-    breakpoint()
+            pixel_cache[rgb_pixel] = closest_colour
+            colour_count[closest_colour] = 1
+
     # TODO: add an upper bound to min diff to return null result if no colour matches correctly
+    # TODO: add mean colour diff?
 
     matched_colour = max(colour_count, key=colour_count.get)
-    return {"url": url, "matched_colour": matched_colour, "diff": None}
+    return {"url": url, "matched_colour": matched_colour}
 
 
 def match_pixel_with_colour():
@@ -74,9 +74,9 @@ def compress_image(image: Image) -> Image:
         return image
 
     height = COMPRESSION_SIZE
-    width = int(COMPRESSION_SIZE / image.height * image.width)
+    width = int((COMPRESSION_SIZE / image.height) * image.width)
 
-    return image.resize((height, width))
+    return image.resize((width, height))
 
 
 def get_redmean_colour_difference(colour1: Tuple[int], colour2: Tuple[int]) -> float:

@@ -1,19 +1,18 @@
-def test_colour_matcher_url_success(client):
-    teal_url = (
-        "https://pwintyimages.blob.core.windows.net/samples/stars/test-sample-teal.png"
-    )
+import pytest
+
+def test_colour_matcher_url_success(client, image_url_valid_teal):
     response = client.post(
         "/v1/images/match-colour",
-        json={"url": teal_url},
+        json={"url": image_url_valid_teal},
     )
     assert response.status_code == 200
     assert response.json() == {
-        "url": teal_url,
-        "closest_colour": {"name": "teal", "r": 0, "g": 128, "b": 127},
-        "true_colour": {"r": 0, "g": 128, "b": 127},
+        "url": image_url_valid_teal,
+        "matched_colour": "tropical_rain_forest"
     }
 
 
+@pytest.mark.skip(reason="Not yet implemented")
 def test_colour_matcher_url_no_match(client):
     grey_url = (
         "https://pwintyimages.blob.core.windows.net/samples/stars/test-sample-grey.png"
@@ -25,16 +24,14 @@ def test_colour_matcher_url_no_match(client):
     assert response.status_code == 200
     assert response.json() == {
         "url": grey_url,
-        "closest_colour": None,
-        "true_colour": {"r": 36, "g": 36, "b": 36},
+        "matched_colour": None
     }
 
 
-def test_colour_matcher_url_invalid_url(client):
-    invalid_url = "https://www.harukimurakami.com/"
+def test_colour_matcher_url_invalid_url(client, invalid_url_no_image_content):
     response = client.post(
         "/v1/images/match-colour",
-        json={"url": invalid_url},
+        json={"url": invalid_url_no_image_content},
     )
     assert response.status_code == 422
-    assert response.json() == {"detail": "URL contains no valid png image."}
+    assert response.json() == {"detail": "URL contains no valid image content."}

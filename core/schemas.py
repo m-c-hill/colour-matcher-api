@@ -19,10 +19,4 @@ class URLSubmit(BaseModel):
 
 class ColourMatchResponse(BaseModel):
     url: str
-    closest_colour: Union[ColourNamed, None] = None
-    true_colour: Colour
-
-
-if __name__ == "__main__":
-    breakpoint()
-    x = 1
+    matched_colour: Union[str, None] = None
