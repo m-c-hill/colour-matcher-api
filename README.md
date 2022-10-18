@@ -1,6 +1,6 @@
 # Colour Matcher API
 
-Colour Matcher takes an image URL and returns the colour that the image matches most closely from a palette of over 800 distinct colours. The application was written using [FastAPI](https://fastapi.tiangolo.com/).
+Colour Matcher takes an image URL and returns the colour that the image as a whole matches most closely from a palette of over 800 distinct colours. The application was written using [FastAPI](https://fastapi.tiangolo.com/).
 
 ## Getting Started
 
@@ -8,7 +8,7 @@ Colour Matcher takes an image URL and returns the colour that the image matches 
 
 ```
 docker build . -t colour_matcher
-docker run -p 8080:80 colour_matcher
+docker run -p 8000:80 colour_matcher
 ```
 
 ### Run the Tests
@@ -68,7 +68,7 @@ However, the RGB model does not accurately model the non-linear way in which hum
 
 ### Algorithm
 
-Using redmean formula, the Colour Matcher application works in the following way:
+Using the redmean formula, the Colour Matcher application works in the following way:
 
 1. Confirm that the input URL contains a valid JPEG, JPG or PNG image.
 2. Download and compress the image, adding the resultant rows of RGB pixels to an array.
@@ -86,12 +86,12 @@ Example of POST request in [Postman](https://www.postman.com/) for grey and teal
 
 **Grey**
 
-![image](https://user-images.githubusercontent.com/74383191/196427129-6b527490-2d8b-4a17-becf-15dfde6f8a35.png)
+<grey_image>
 
 
 **Teal**
 
-![image](https://user-images.githubusercontent.com/74383191/196427397-9f392b79-9963-4a2c-afd3-16de639e0f62.png)
+<teal_image>
 
 
 ## Future Improvements

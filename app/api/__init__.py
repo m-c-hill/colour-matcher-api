@@ -6,8 +6,6 @@ from sqlalchemy import text
 
 from .v1 import v1_router
 
-SEED = False  # TODO: temporary solution to adding colours to database on start-up
-
 
 def create_app():
     models.Base.metadata.create_all(bind=engine)
@@ -25,8 +23,13 @@ def create_app():
 
     @app.on_event("startup")
     def startup_populate_db():
-        if SEED:
-            db = SessionLocal()
+        """
+        Check if colour table is populated. If not, execute query in core/data to
+        insert selection of colours for pixel comparison.
+        """
+        db = SessionLocal()
+        c = db.query(models.Colour).first()
+        if not c:
             with open("core/data/colours.sql") as file:
                 query = text(file.read())
                 db.execute(query)

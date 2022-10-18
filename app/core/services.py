@@ -9,7 +9,7 @@ from PIL import Image
 
 from .schemas import Colour
 
-COMPRESSION_SIZE = 40
+COMPRESSION_SIZE = 40  # TODO: experiment with minimising to speed up matching
 PIXEL_DOMINANCE_THRESHOLD = 30
 
 
@@ -72,8 +72,8 @@ def match_image_with_colour(url: str, palette: List[Colour]) -> dict:
     """
     Match an image with a colour from a palette of predefined colours.
     """
-    pixel_cache = {}
-    colour_count = {}
+    pixel_cache = {}  # {(rgb tuple): matched_colour_name}
+    colour_count = {}  # {colour_name: frequency_of_matched_pixels}
 
     image_array = load_image(url)
 
