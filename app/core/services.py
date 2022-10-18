@@ -1,5 +1,5 @@
 import math
-from typing import List, Tuple, Union
+from typing import List, Tuple
 from urllib.request import urlopen
 
 import numpy as np
@@ -101,7 +101,7 @@ def match_pixel_with_colour(pixel: Tuple[int], palette: List[Colour]) -> str:
     """
     min_diff = math.inf
     for colour in palette:
-        rgb_palette = (colour.r, colour.b, colour.g)
+        rgb_palette = (colour.r, colour.g, colour.b)
         diff = get_redmean_colour_difference(pixel, rgb_palette)
         if diff < min_diff:
             min_diff = diff

@@ -1,6 +1,4 @@
-from unicodedata import name
-
-from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from .database import Base

@@ -23,6 +23,7 @@ async def match_colour(body: schemas.URLSubmit, db: Session = Depends(get_db)):
         colour_id = crud.get_colour_by_name(db, match["matched_colour"]).id
         image_record = crud.create_image_record(db, url, colour_id)
 
+    # TODO: replace with a join
     colour_name = crud.get_colour_by_id(db, image_record.matched_colour_id).name
 
     return schemas.ColourMatchResponse(

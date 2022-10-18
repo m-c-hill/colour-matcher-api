@@ -23,7 +23,7 @@ def test_colour_matcher_url_success(client, image_url_valid_teal):
     assert response.status_code == 200
     assert response.json() == {
         "url": image_url_valid_teal,
-        "matched_colour": "tropical_rain_forest",
+        "matched_colour": "skobeloff",
     }
 
 
