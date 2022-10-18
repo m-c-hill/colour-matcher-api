@@ -23,7 +23,7 @@ docker run -p 8000:80 colour_matcher
 
 Submit a URL containing an image in PNG, JPEG or JPG format. Returns the name of the dominant colour found in the image.
 
-*Example*:
+_Example_:
 
 ```
 curl -X 'POST' \
@@ -35,7 +35,7 @@ curl -X 'POST' \
 }'
 ```
 
-*Response*:
+_Response_:
 
 ```
 {
@@ -82,6 +82,7 @@ Using the redmean formula, the Colour Matcher application works in the following
 10. Return the name of the matched colour.
 
 ### Postman Screenshot
+
 Example of POST request in [Postman](https://www.postman.com/) for grey and teal images:
 
 **Grey**
@@ -96,12 +97,32 @@ Example of POST request in [Postman](https://www.postman.com/) for grey and teal
 
 ![image](https://user-images.githubusercontent.com/74383191/196458859-beec3ec3-28f2-4182-9559-f837314afc51.png)
 
-
 ## Future Improvements
-- Optimisation of pixel search
-- Experiment with maximising the compression of each image
-- ... # TODO before interview
+
+#### 1. Optimise the Compression of Images
+
+- The time complexity for the algorithm is currently O(N\*C), where N is the number of pixels and C is the number of colours in the palette.
+- The speed of the algorithm used to match a colour to an image is relatively quick for images composed of few colours. This is because pixels with matching RGB values are only analysed once. Once a pixel is matched, it is cached such that future pixels of equal RGB values can then retrieve the closest colour from the cache, rather than having to go through the full colour palette analysis.
+- It is therefore vitally important to reduce both the number of pixels that need to be analysed and the number of unique colours in the image being processed.
+- An attempt has been made to reduce the number of pixels using the `PIL` library's `size` method to compress the image.
+- This compression could perhaps be optimsed using [octree color quantization](https://observablehq.com/@tmcw/octree-color-quantization) to reduce the number of unique colours in the image before processing. The [Python Imaging Library contains the `quantize()` method](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Quantize.FASTOCTREE) to achieve this.
+
+#### 2. Optimise Pixel Colour Matching Using Nearest Neighbour
+
+- Currently, when matching a pixel, the algorithm performs a linear serach, sweeping through the entire stored palette of over 800 known colours.
+- A [nearest neighbour algorithm using a k-d tree](https://blog.krum.io/k-d-trees/) would have been a more efficient approach as it allows for entire batches of colours to be disregarded in a single operation. However, given the time contraints of this assignment and the difficulty in combining this with the redmean equation, it has not been attempted at the present time.
+
+#### 3. API Features & Data Models
+
+- Option to remove colours from the palette (ie. matching images while ignoring a background colour such as white).
+- Ability to define and input colour dominance threshold (see `services.py`).
+- Add option for a 'redmean matching threshold' (ie. for a colour to match, its redmean difference must be within the range of a certain threshold, otherwise the match is not valid).
+- Add a cache timeout to previously run queries stored in the database. Currently, the endpoint will check if the URL has been processed previously and return that result if found in the `images` table. If the image cache record is older than a given period of time and the URL is resubmitted, the image should be fully reprocessed rather than drawing from the cache. This will account for situations where URLs are resubmitted but their associated image resource has perhaps been updated.
+
+#### 4. System Design
+
+- More extensive testing, especially unit tests.
 
 ## References
 
-CompuPhase, 2019. *Colour metric*. Available from: https://www.compuphase.com/cmetric.htm [Accessed 17 Oct 2022].
+CompuPhase, 2019. _Colour metric_. Available from: https://www.compuphase.com/cmetric.htm [Accessed 17 Oct 2022].
