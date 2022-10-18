@@ -17,7 +17,7 @@ async def match_colour(body: schemas.URLSubmit, db: Session = Depends(get_db)):
             detail="URL contains no valid png image.",
         )
 
-    match = services.match_colour(url)
+    match = services.match_colour(url, db)
 
     return schemas.ColourMatchResponse(
         url=url,

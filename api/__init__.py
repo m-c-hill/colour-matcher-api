@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from core import models
 from core.database import SessionLocal, engine
 
+from sqlalchemy import text
+
 from .v1 import v1_router
 
 
@@ -24,6 +26,8 @@ def create_app():
     @app.on_event("startup")
     def startup_populate_db():
         db = SessionLocal()
-        # TODO: populate database with initial seed data?
-
+        with open("core/data/colours.sql") as file:
+            query = text(file.read())
+            db.execute(query)
+            db.commit()
     return app
