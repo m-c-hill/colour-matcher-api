@@ -20,3 +20,8 @@ class URLSubmit(BaseModel):
 class ColourMatchResponse(BaseModel):
     url: str
     matched_colour: Union[str, None] = None
+
+
+class ImageCreate(BaseModel):
+    url: str
+    matched_colour_id: int

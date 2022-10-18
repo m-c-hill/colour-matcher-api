@@ -863,4 +863,5 @@ INSERT INTO colour (name, r, g, b) VALUES
     ('yellow_process',255,239,0),
     ('yellow_ryb',254,254,51),
     ('zaffre',0,20,168),
-    ('zinnwaldite_brown',44,22,8);
+    ('zinnwaldite_brown',44,22,8),
+    ('NO-MATCH-FOUND', 999, 999, 999);

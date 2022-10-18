@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from core import schemas, services
-from core.crud import get_image_by_url, load_colours
+from core import schemas, services, crud
 from core.database import get_db
 
 image_router = APIRouter(tags=["images"], prefix="/images")
@@ -18,16 +17,17 @@ async def match_colour(body: schemas.URLSubmit, db: Session = Depends(get_db)):
             detail="URL contains no valid image content.",
         )
 
-    image_record = get_image_by_url(db, url)
-    if image_record:
-        match = ""  # TODO: update to take into account stored image
-    else:
-        colours = load_colours(db)
+    image_record = crud.get_image_by_url(db, url)
+    if not image_record:
+        colours = crud.load_colours(db)
         match = services.match_image_with_colour(url, colours)
-        # TODO: save url, add crud function
+        colour_id = crud.get_colour_by_name(db, match["matched_colour"]).id
+        image_record = crud.create_image_record(db, url, colour_id)
+
+    breakpoint()
+    colour_name = crud.get_colour_by_id(db, image_record.matched_colour_id).name
 
     return schemas.ColourMatchResponse(
         url=url,
-        matched_colour=match["matched_colour"],
-        # avg_deviation=match["avg_deviation"],
+        matched_colour=colour_name,
     )

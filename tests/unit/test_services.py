@@ -75,4 +75,4 @@ def test_check_matched_colour_dominant_success():
 def test_check_matched_colour_dominant_failure():
     colour_count = {"green": 25, "red": 25, "blue": 25, "yellow": 25}
     matched_colour = services.check_matched_colour_dominant(colour_count, 100)
-    assert matched_colour is None
+    assert matched_colour == "NO-MATCH-FOUND"

@@ -35,7 +35,7 @@ def test_colour_matcher_url_no_match(client, invalid_url_no_dominant_colour):
     assert response.status_code == 200
     assert response.json() == {
         "url": invalid_url_no_dominant_colour,
-        "matched_colour": None,
+        "matched_colour": "NO-MATCH-FOUND",
     }
 
 

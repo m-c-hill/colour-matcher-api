@@ -111,7 +111,7 @@ def match_pixel_with_colour(pixel: Tuple[int], palette: List[Colour]) -> str:
 
 def check_matched_colour_dominant(
     colour_count: dict, pixel_count: int
-) -> Union[str, None]:
+) -> str:
     """
     Check the most frequent colour match exceeds the minimum threshold to be
     considered the matching colour.
@@ -120,4 +120,4 @@ def check_matched_colour_dominant(
 
     if dominant_pixel_percentage >= PIXEL_DOMINANCE_THRESHOLD:
         return max(colour_count, key=colour_count.get)
-    return None
+    return "NO-MATCH-FOUND"
