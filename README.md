@@ -54,18 +54,17 @@ If an invalid URL containing no image content is sent in the request body, the r
 
 ## Colour Matching
 
-
 ### Theory
 
 Colours can be represented using the [RGB colour model](https://en.wikipedia.org/wiki/RGB_color_model), an additive model in which each colour is represented by the combination three integers (0-255), each of these representing the additive primary colours: red, green and blue.
 
 To calculate the difference between two colours, it should be as simple as just calculating the Euclidean distance between two RGB points in three-dimensional space.
 
-<image_1>
+![image](https://user-images.githubusercontent.com/74383191/196426805-a6b3bbaf-c625-47bc-8a88-a7165de3605e.png)
 
 However, the RGB model does not accurately model the non-linear way in which humans perceive colour. A low-cost algorithm for determining colour difference is the [redmean formula](https://www.compuphase.com/cmetric.htm), which is a weighted Euclidean distance function, where the square differences between each colour component are weighted as a funtion of the mean red level in both colours:
 
-<image_2>
+![image](https://user-images.githubusercontent.com/74383191/196426868-bd762533-27cf-4357-b4da-8f5a2ff2af74.png)
 
 ### Algorithm
 
@@ -81,6 +80,19 @@ Using redmean formula, the Colour Matcher application works in the following way
 8. After analysing each pixel, find the matched colour with the highest frequency (usning the dictionary in step 4).
 9. Check that this colour is the dominant colour in the image (percentage of pixels matching this colour must exceed the defined threshold of 30%).
 10. Return the name of the matched colour.
+
+### Postman Screenshot
+Example of POST request in [Postman](https://www.postman.com/) for grey and teal images:
+
+**Grey**
+
+![image](https://user-images.githubusercontent.com/74383191/196427129-6b527490-2d8b-4a17-becf-15dfde6f8a35.png)
+
+
+**Teal**
+
+![image](https://user-images.githubusercontent.com/74383191/196427397-9f392b79-9963-4a2c-afd3-16de639e0f62.png)
+
 
 ## Future Improvements
 - Optimisation of pixel search
