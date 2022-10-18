@@ -40,7 +40,7 @@ curl -X 'POST' \
 ```
 {
   "url": "https://pwintyimages.blob.core.windows.net/samples/stars/test-sample-teal.png",
-  "matched_colour": "tropical_rain_forest"
+  "matched_colour": "skobeloff"
 }
 ```
 
@@ -86,12 +86,15 @@ Example of POST request in [Postman](https://www.postman.com/) for grey and teal
 
 **Grey**
 
-<grey_image>
+![image](https://user-images.githubusercontent.com/74383191/196459088-3669c00b-8742-4777-8114-74e256b96e95.png)
 
+![image](https://user-images.githubusercontent.com/74383191/196459663-b1e36f40-19eb-4f3a-819e-1cb33e09be48.png)
 
 **Teal**
 
-<teal_image>
+![image](https://user-images.githubusercontent.com/74383191/196458957-9c8b9285-fedf-4ed1-bca2-672b6d7f3d5e.png)
+
+![image](https://user-images.githubusercontent.com/74383191/196458859-beec3ec3-28f2-4182-9559-f837314afc51.png)
 
 
 ## Future Improvements
