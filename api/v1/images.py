@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from core import schemas, services
-from core.database import get_db
 from core.crud import get_image_by_url, load_colours
+from core.database import get_db
 
 image_router = APIRouter(tags=["images"], prefix="/images")
 

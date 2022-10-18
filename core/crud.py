@@ -1,7 +1,8 @@
 from typing import List, Tuple
 
-from core import models
 from sqlalchemy.orm import Session
+
+from core import models
 
 
 def load_colours(db: Session) -> List[models.Colour]:

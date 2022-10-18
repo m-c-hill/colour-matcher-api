@@ -1,6 +1,5 @@
 from api import create_app
 
-# uvicorn main:app --reload
 app = create_app()
 
 if __name__ == "__main__":

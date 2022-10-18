@@ -24,4 +24,3 @@ class Image(Base):
     url = Column(String, unique=True)
     matched_colour_id = Column(Integer, ForeignKey("colour.id"))
     # avg_deviation = Column(Float)
-    
