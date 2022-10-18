@@ -3,6 +3,10 @@ from typing import Union
 from pydantic import BaseModel
 
 
+class URLSubmit(BaseModel):
+    url: str
+
+
 class Colour(BaseModel):
     r: int
     g: int
@@ -11,10 +15,6 @@ class Colour(BaseModel):
 
 class ColourNamed(Colour):
     name: str
-
-
-class URLSubmit(BaseModel):
-    url: str
 
 
 class ColourMatchResponse(BaseModel):

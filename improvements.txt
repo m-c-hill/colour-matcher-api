@@ -1,3 +1,0 @@
-- Exclude colours (ie. white) from comparison
-- Optimisation:
-    - In some range of the cache?
